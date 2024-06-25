@@ -1,29 +1,25 @@
-import { Html, Head, Main, NextScript } from 'next/document'
-import Script from 'next/script'
-import { ShellSdk, SHELL_EVENTS } from 'fsm-shell';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 
-export default function Document() {
-  return (
-    <Html>
-      <Head>
-        <Script src="https://unpkg.com/fsm-shell"
-          strategy="lazyOnload"
-          onLoad={() =>
-            console.log(`FSM Shell script loaded correctly`)
-          }
-        />
-        <script src="helpers.js"></script>
+class MyDocument extends Document {
+  render() {
+    return (
+      <Html>
+        <Head>
+          {/* Ensure all scripts are loaded asynchronously */}
+          <script
+            src="https://unpkg.com/fsm-shell"
+            async
+          ></script>
+          {/* or you can defer the script */}
 
-
-
-      </Head>
-      <body>
-        <script>
-
-        </script>
-        <Main></Main>
-        <NextScript />
-      </body>
-    </Html>
-  )
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
 }
+
+export default MyDocument;
